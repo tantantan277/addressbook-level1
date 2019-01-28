@@ -133,6 +133,10 @@ public class AddressBook {
     private static final String COMMAND_EXIT_DESC = "Exits the program.";
     private static final String COMMAND_EXIT_EXAMPLE = COMMAND_EXIT_WORD;
 
+    private static final String COMMAND_SIZE_WORD = "size";
+    private static final String COMMAND_SIZE_DESC = "Show the number of entries in the address book";
+    private static final String COMMAND_SIZE_EXAMPLE = COMMAND_SIZE_WORD;
+
     private static final String DIVIDER = "===================================================";
 
 
@@ -383,6 +387,8 @@ public class AddressBook {
             return getUsageInfoForAllCommands();
         case COMMAND_EXIT_WORD:
             executeExitProgramRequest();
+        case COMMAND_SIZE_WORD:
+            return executeSizeOfAddressBook();
         default:
             return getMessageForInvalidCommandInput(commandType, getUsageInfoForAllCommands());
         }
@@ -580,6 +586,23 @@ public class AddressBook {
     }
 
     /**
+     * Display the number of entry currently in the address book
+     *
+     * @return feedback display message for the operation result
+     */
+    private static String executeSizeOfAddressBook() {
+        int size = ALL_PERSONS.size();
+        switch (size) {
+        case 0:
+            return "There are no entry in the address book.";
+        case 1:
+            return "There is one entry in the address book.";
+        default:
+            return String.format("There are %d entries in the address book.", size);
+        }
+    }
+
+    /**
      * Requests to terminate the program.
      */
     private static void executeExitProgramRequest() {
@@ -614,6 +637,8 @@ public class AddressBook {
     * method can accept a varying number of message parameters.
     * ====================================================================
     */
+
+
 
     /**
      * Shows a message to the user
@@ -1087,6 +1112,7 @@ public class AddressBook {
                 + getUsageInfoForViewCommand() + LS
                 + getUsageInfoForDeleteCommand() + LS
                 + getUsageInfoForClearCommand() + LS
+                + getUsageInfoForSizeCommand() + LS
                 + getUsageInfoForExitCommand() + LS
                 + getUsageInfoForHelpCommand();
     }
@@ -1134,6 +1160,12 @@ public class AddressBook {
     private static String getUsageInfoForExitCommand() {
         return String.format(MESSAGE_COMMAND_HELP, COMMAND_EXIT_WORD, COMMAND_EXIT_DESC)
                 + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_EXIT_EXAMPLE);
+    }
+
+    /** Returns the string for showing 'size' command usage instruction */
+    private static String getUsageInfoForSizeCommand() {
+        return String.format(MESSAGE_COMMAND_HELP, COMMAND_SIZE_WORD, COMMAND_SIZE_DESC) + LS
+                + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_SIZE_EXAMPLE) + LS;
     }
 
 
